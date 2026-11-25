@@ -4,12 +4,14 @@
 
 **Metroid Prime 3: Corruption for [Archipelago](https://archipelago.gg).**
 
-> **Beta.** Version 0.3.0 is the first public test release. Expect rough edges; see
-> [known limitations](docs/INSTALL.md#8-known-limitations-030).
+> **Beta available:** [**Prime3AP 0.3.0 (beta)**](https://github.com/junkx420/Prime3AP/releases/tag/v0.3.0) is the
+> first public test release (pre-release). Expect rough edges; see
+> [known limitations](docs/INSTALL.md#8-known-limitations-030) and report problems in the
+> [issues](https://github.com/junkx420/Prime3AP/issues).
 
 ## What you get
 
-Download from the [releases](https://github.com/junkx420/Prime3AP/releases):
+Download from the [v0.3.0 release](https://github.com/junkx420/Prime3AP/releases/tag/v0.3.0):
 
 | File | What it is |
 |---|---|
