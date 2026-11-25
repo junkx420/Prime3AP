@@ -1,0 +1,27 @@
+# Example player settings for Metroid Prime 3: Corruption (Prime3AP).
+# Copy this file into the "Players" folder of your Archipelago installation (or give it to the host of the
+# multiworld), change "name", and generate. All values below are the defaults.
+# Full template with every option explained: Archipelago Launcher -> "Generate Template Options".
+
+name: YourName                # slot name, max. 16 characters; must be unique in the multiworld
+description: 'Metroid Prime 3: Corruption, default options'
+game: 'Metroid Prime 3: Corruption'
+requires:
+  version: 0.6.8              # Archipelago version
+  game:
+    'Metroid Prime 3: Corruption': 0.3.0   # world version (metroidprime3.apworld)
+
+'Metroid Prime 3: Corruption':
+  # The world has no game-specific options yet: 99 locations, default starting location
+  # (G.F.S. Valhalla, Docking Bay 5), goal = defeat Dark Samus / Aurora Unit 313 on Phaaze.
+  progression_balancing: normal   # 0-99, "normal" = 50
+  accessibility: full             # full: every location reachable; minimal: only the goal
+  local_items: []
+  non_local_items: []
+  start_inventory: {}
+  start_hints: []
+  start_location_hints: []
+  exclude_locations: []
+  priority_locations: []
+  item_links: []
+  plando_items: []

@@ -4,34 +4,58 @@
 
 **Metroid Prime 3: Corruption for [Archipelago](https://archipelago.gg).**
 
-> **Work in progress.** There is no release yet. This repository only reserves the name for the future release.
+> **Beta.** Version 0.3.0 is the first public test release. Expect rough edges; see
+> [known limitations](docs/INSTALL.md#8-known-limitations-030).
 
-## Development
+## What you get
 
-Development currently happens in the fork [junkx420/corruptovania](https://github.com/junkx420/corruptovania) on the branch [`archipelago`](https://github.com/junkx420/corruptovania/tree/archipelago). The fork remains the source for the logic data and the patcher.
+Download from the [releases](https://github.com/junkx420/Prime3AP/releases):
 
-## Planned contents
+| File | What it is |
+|---|---|
+| `metroidprime3.apworld` | The Archipelago world: generation, the patch file `.apmp3`, the launcher entry and the **Metroid Prime 3 Client** (connects Dolphin/PrimeHack to the Archipelago server). |
+| `Metroid Prime 3 Corruption.yaml` | Example player YAML with the default options (also in [`examples/`](examples/)). |
+| `metroidprime3-tools-win.zip` | Patch tools (MP3Randomizer, nodtool, wit). **You do not need to download it**: the patch tool fetches it automatically the first time. Only for offline installs. |
+| `SHA256SUMS.txt` | SHA-256 checksums of the files above. |
 
-- **APWorld** (`.apworld`) for generating Archipelago multiworld seeds
-- **Client** that connects Dolphin/PrimeHack to an Archipelago server (sends location checks, receives items)
-- **Patch tool** that turns an Archipelago patch file and your own game dump into a patched ISO
-- **Setup guide**
+## Quick start
 
-Releases will be published as GitHub release assets (`.apworld` and executable).
+Requirements: Windows, [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases) 0.6.8 or newer,
+Dolphin or PrimeHack, and **your own** Wii PAL disc image of Metroid Prime 3: Corruption (game ID **RM3P01**).
+
+1. Install `metroidprime3.apworld` (double-click it or Launcher → **Install APWorld**), restart the launcher.
+2. Put the example YAML (with your `name`) into `Players`, generate, host.
+3. Open your `.apmp3` (double-click or Launcher → **Open Patch**). The first time, choose your original ISO; the patch
+   tools are downloaded once. A patched ISO appears next to the `.apmp3` and the client starts.
+4. Boot the patched ISO in Dolphin/PrimeHack, connect the client, start a new game.
+
+Full guide with troubleshooting: **[docs/INSTALL.md](docs/INSTALL.md)**.
 
 ## Supported versions
 
-Initially only the **Wii PAL version (RM3P01)**, played on **Dolphin** or **PrimeHack**. Other versions may follow later.
+Only the **Wii PAL version (RM3P01)**, played on **Dolphin** or **PrimeHack**. NTSC and Metroid Prime Trilogy are not
+supported.
 
 ## No game files
 
-This repository does not contain and will never distribute an ISO or any other game files. You need your own legally obtained copy of the game.
+This repository does not contain and will never distribute an ISO or any other game files. You need your own legally
+obtained copy of the game.
+
+## Development
+
+Development happens in the fork [junkx420/corruptovania](https://github.com/junkx420/corruptovania) on the branch
+[`archipelago`](https://github.com/junkx420/corruptovania/tree/archipelago) (logic data, APWorld, client, patch tool).
+The release assets are built there with `apworld/tools/release/build_release.py`.
 
 ## Credits
 
-- [Corruptovania](https://github.com/Schwork-Corruption/corruptovania) and [Randovania](https://github.com/randovania/randovania) for the game logic data and the patcher this project builds on
+- [Corruptovania](https://github.com/Schwork-Corruption/corruptovania) and [Randovania](https://github.com/randovania/randovania)
+  for the game logic data and the patcher this project builds on
+- gollop's MP3Randomizer, [nod](https://github.com/AxioDL/nod), [lzokay](https://github.com/AxioDL/lzokay) and
+  [Wiimms ISO Tools](https://wit.wiimm.de/) (licences in the tools ZIP)
 - [Archipelago](https://github.com/ArchipelagoMW/Archipelago) for the multiworld framework
 
 ## License
 
-[GNU General Public License v3.0](LICENSE)
+[GNU General Public License v3.0](LICENSE). The third-party programs in the tools ZIP keep their own licences
+(`THIRD-PARTY-NOTICES.txt` inside the ZIP).
