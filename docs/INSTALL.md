@@ -130,7 +130,10 @@ Useful client commands: `/seed` (result of the seed ID check), `/inventory` (wha
   client checks all of them; in testing no pickup was lost, but a missed pickup cannot be ruled out yet.
 - Received Energy Tanks are not refilled (see Troubleshooting).
 - Pickups of other players all look the same ("Archipelago Item", Energy Cell model); there is no per-item text yet.
-- No game-specific options yet (no starting location, trick level or DeathLink).
+- No game-specific options yet: default starting items, no tricks in the logic, fixed starting location, no DeathLink.
+  Starting items and trick levels as YAML options are planned for 0.4.0.
+- Screw Attack is always placed on one of the three starting pickups (so every seed can be generated with the small
+  start).
 
 ## 9. Licences and sources
 
