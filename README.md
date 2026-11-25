@@ -14,7 +14,7 @@ Download from the [releases](https://github.com/junkx420/Prime3AP/releases):
 | File | What it is |
 |---|---|
 | `metroidprime3.apworld` | The Archipelago world: generation, the patch file `.apmp3`, the launcher entry and the **Metroid Prime 3 Client** (connects Dolphin/PrimeHack to the Archipelago server). |
-| `Metroid Prime 3 Corruption.yaml` | Example player YAML with the default options (also in [`examples/`](examples/)). |
+| `metroidprime3-example.yaml` | Example player YAML with the default options (also in [`examples/`](examples/)). |
 | `metroidprime3-tools-win.zip` | Patch tools (MP3Randomizer, nodtool, wit). **You do not need to download it**: the patch tool fetches it automatically the first time. Only for offline installs. |
 | `SHA256SUMS.txt` | SHA-256 checksums of the files above. |
 

@@ -28,7 +28,7 @@ To update, install the new `.apworld` the same way (it replaces the old one).
 ## 3. Create your player YAML
 
 Use [`examples/Metroid Prime 3 Corruption.yaml`](../examples/Metroid%20Prime%203%20Corruption.yaml) (also attached to
-each release). Change `name` to your slot name. The world has no game-specific options yet; everything else can stay at
+each release as `metroidprime3-example.yaml`). Change `name` to your slot name. The world has no game-specific options yet; everything else can stay at
 the default:
 
 ```yaml
