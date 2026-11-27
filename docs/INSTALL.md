@@ -1,6 +1,6 @@
 # Installing and playing Prime3AP
 
-Metroid Prime 3: Corruption for [Archipelago](https://archipelago.gg), version 0.3.0 (beta).
+Metroid Prime 3: Corruption for [Archipelago](https://archipelago.gg), version 0.4.0 (beta).
 
 ## 1. Requirements
 
@@ -9,12 +9,12 @@ Metroid Prime 3: Corruption for [Archipelago](https://archipelago.gg), version 0
 | Windows 10 or 11 | The patch tool runs on Windows only. |
 | [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases) **0.6.8 or newer** | The installed version is fine. |
 | [Dolphin](https://dolphin-emu.org/) or [PrimeHack](https://github.com/shiiion/dolphin/releases) | Tested: Dolphin 2609b, PrimeHack 1.0.9. In PrimeHack, leave "Emulated CPU Clock Override" off. |
-| Your own **Wii PAL** disc image of Metroid Prime 3: Corruption, game ID **RM3P01**, unmodified | Not provided here, and never will be. Dump your own disc. NTSC (RM3E01, RM3J01) and Metroid Prime Trilogy do **not** work. |
+| Your own unmodified Wii PAL (**RM3P01**) or NTSC-U (**RM3E01**) Rev 0 disc image | Dump your own Metroid Prime 3: Corruption disc. |
 | Microsoft Visual C++ 2015-2022 Redistributable ([x64](https://aka.ms/vs/17/release/vc_redist.x64.exe), [x86](https://aka.ms/vs/17/release/vc_redist.x86.exe)) | Most PCs already have it (Dolphin needs it too). |
 | About 10 GB free disk space | Temporary files while patching (about 2 × the ISO) plus the patched ISO. |
-| Internet on the first patch | The patch tools (31 MB) are downloaded once. For offline use see [Troubleshooting](#7-troubleshooting). |
+| Internet on the first patch | The patch tools are downloaded once. For offline use see [Troubleshooting](#7-troubleshooting). |
 
-How to check the game ID of your ISO: in Dolphin, right-click the game → Properties → Info: "Game ID" must be `RM3P01`.
+How to check the game ID of your ISO: in Dolphin, right-click the game → Properties → Info: "Game ID" must be `RM3P01` or `RM3E01`.
 
 ## 2. Install the APWorld
 
@@ -28,8 +28,7 @@ To update, install the new `.apworld` the same way (it replaces the old one).
 ## 3. Create your player YAML
 
 Use [`examples/Metroid Prime 3 Corruption.yaml`](../examples/Metroid%20Prime%203%20Corruption.yaml) (also attached to
-each release as `metroidprime3-example.yaml`). Change `name` to your slot name. The world has no game-specific options yet; everything else can stay at
-the default:
+each release as `metroidprime3-example.yaml`). Change `name` to your slot name. The defaults keep all starting items and leave experimental tricks off.
 
 ```yaml
 name: YourName
@@ -39,9 +38,16 @@ requires:
 'Metroid Prime 3: Corruption':
   progression_balancing: normal
   accessibility: full
+  starting_items: ['Charge Beam', 'Space Jump Boots', 'Morph Ball', 'Morph Ball Bombs']
+  trick_level: 'off'
+  trick_overrides: {}
 ```
 
-What the world does:
+Remove items from `starting_items` to shuffle them into the pool. Small starts get a local opening chain.
+Leave `trick_level: 'off'` and `trick_overrides: {}` when learning the game. Even `beginner` can require
+techniques to reach important items. [Player options](https://github.com/junkx420/corruptovania/blob/archipelago/docs/AP_OPTIONS.md)
+
+
 
 - 99 locations (every pickup in the game) are shuffled into the multiworld. Pickups that belong to other players show
   up in the game as "Archipelago Item".
@@ -65,12 +71,12 @@ generate locally.
 Double-click the `.apmp3` (choose `ArchipelagoLauncher.exe` under "Open with" the first time), or open the
 launcher, choose **Open Patch** and select the `.apmp3`.
 
-1. **First time only:** a file dialog asks for your original Metroid Prime 3 ISO (RM3P01). The path is saved in
+1. **First time only:** a file dialog asks for your original Metroid Prime 3 ISO (RM3P01 or RM3E01). The path is saved in
    `host.yaml` (`metroidprime3_options` → `iso_file`).
-2. **First time only:** the patch tools (MP3Randomizer, nodtool, wit) are downloaded from this repository's release,
+2. **First time only:** the patch tools (MP3Randomizer, nodtool, wit, HDiffPatch and patch data) are downloaded from this repository's release,
    checked against a fixed SHA-256 and stored in `metroidprime3_tools` inside your Archipelago folder. The patch window
    shows the progress.
-3. The patch window shows six steps (about 40 seconds). The patched ISO is written next to the `.apmp3`, with the same
+3. The patch window displays progress. The patched ISO is written next to the `.apmp3`, with the same
    name and the extension `.iso`. Your original ISO is not changed.
 4. The **Metroid Prime 3 Client** starts. If the `.apmp3` came from archipelago.gg, it already knows the server.
 
@@ -80,10 +86,14 @@ Optional `host.yaml` settings:
 
 ```yaml
 metroidprime3_options:
-  iso_file: "D:\\Games\\Metroid Prime 3 (PAL).iso"   # original ISO
+  iso_file: "C:/Games/Metroid Prime 3.iso"   # original ISO
   tools_folder: ""      # folder with the patch tools; empty = download/cache automatically
   output_folder: ""     # where patched ISOs go; empty = next to the .apmp3
+  mp3update: true       # NTSC-U: MP3Update and Deflicker; PAL: Deflicker
 ```
+
+Use forward slashes in double-quoted paths because YAML treats backslashes as escapes. Set `mp3update: false`
+to keep the original PAL filter or skip both NTSC-U patches, then reopen the `.apmp3` to rebuild the ISO.
 
 ## 6. Play
 
@@ -100,14 +110,20 @@ Useful client commands: `/seed` (result of the seed ID check), `/inventory` (wha
 `/seedwarn on|off` (Leviathan seed warning),
 `/missing`, `/received`, `!hint <item>`.
 
+### Universal Tracker
+
+With Universal Tracker v0.3.8 and the v0.4.0 APWorld installed, connect the tracker to your server and slot.
+The tracker reads starting items, tricks, extra starting inventory and location exclusions from seed data.
+Older seeds use the available settings with defaults for missing values. [Compatibility](https://github.com/junkx420/corruptovania/blob/archipelago/docs/AP_OPTIONS.md#universal-tracker)
+
 ## 7. Troubleshooting
 
 | Problem | What to do |
 |---|---|
-| "Could not download the patch tools" (no internet, firewall) | Download `metroidprime3-tools-win.zip` from the [release page](https://github.com/junkx420/Prime3AP/releases/tag/v0.3.0) on any PC. Put the ZIP **as it is** (not extracted) into `metroidprime3_tools` in your Archipelago folder (create the folder) and open the `.apmp3` again. Or extract it anywhere and set `tools_folder` in `host.yaml` to that folder. |
+| "Could not download the patch tools" (no internet, firewall) | Download `metroidprime3-tools-win.zip` from the [release page](https://github.com/junkx420/Prime3AP/releases/tag/v0.4.0) on any PC. Put the ZIP **as it is** (not extracted) into `metroidprime3_tools` in your Archipelago folder (create the folder) and open the `.apmp3` again. Or extract it anywhere and set `tools_folder` in `host.yaml` to that folder. |
 | "... has SHA-256 ..., expected ..." | The ZIP is damaged or not the one of this version. Delete it and download it again from the release page. |
 | "nodtool.exe failed ... a DLL is missing" | Install the Microsoft Visual C++ 2015-2022 Redistributable (links in section 1). |
-| "game ID ... is not Metroid Prime 3: Corruption" or "... untested" | Wrong disc image. Only the Wii PAL version RM3P01 works; Metroid Prime Trilogy does not. Set `iso_file` in `host.yaml` to the right file. |
+| "game ID ... is not Metroid Prime 3: Corruption" or "... untested" | Use a clean Wii PAL RM3P01 or NTSC-U RM3E01 Rev 0 image. Set `iso_file` in `host.yaml` to the right file. |
 | Wrong ISO chosen in the file dialog | Edit `iso_file` under `metroidprime3_options` in `host.yaml` (Archipelago folder). |
 | Patching fails with a disk error | Free about 10 GB on the drive of your temp folder and of the `.apmp3`. |
 | Client says "WRONG ISO" or "NOT AN AP ISO", nothing is sent | Boot the ISO that was built from **your** `.apmp3`. Each seed and slot has its own ISO. |
@@ -116,9 +132,9 @@ Useful client commands: `/seed` (result of the seed ID check), `/inventory` (wha
 | A collected pickup was not sent | Rare (see limitations). Leave the room and come back; if it is still missing, ask the host to use `/send_location <your name> <location>`. |
 | Something else | Logs are in `logs` in your Archipelago folder: `MetroidPrime3Patch_*.txt` (patching) and `MetroidPrime3Client_*.txt` (client). Open an [issue](https://github.com/junkx420/Prime3AP/issues) with them. |
 
-## 8. Known limitations (0.3.0)
+## 8. Known limitations (0.4.0)
 
-- **Wii PAL (RM3P01) only.** NTSC-U, NTSC-J and Metroid Prime Trilogy are not supported.
+- **Windows only for patching.** NTSC-J and Metroid Prime Trilogy are unsupported. PAL gets Deflicker only.
 - **Leviathan cores:** only enter a Leviathan seed's core when you have the item you need to get out again, or you are
   stuck and must reload your save:
   Bryyo seed → Hyper Ball; SkyTown Elysia seed → Hyper Missile (and at least 4 Missiles);
@@ -130,10 +146,8 @@ Useful client commands: `/seed` (result of the seed ID check), `/inventory` (wha
   client checks all of them; in testing no pickup was lost, but a missed pickup cannot be ruled out yet.
 - Received Energy Tanks are not refilled (see Troubleshooting).
 - Pickups of other players all look the same ("Archipelago Item", Energy Cell model); there is no per-item text yet.
-- No game-specific options yet: default starting items, no tricks in the logic, fixed starting location, no DeathLink.
-  Starting items and trick levels as YAML options are planned for 0.4.0.
-- Screw Attack is always placed on one of the three starting pickups (so every seed can be generated with the small
-  start).
+- The starting location is fixed at Docking Bay 5. DeathLink is unavailable.
+- Default options request early Screw Attack. Small starts use a local opening chain.
 
 ## 9. Licences and sources
 

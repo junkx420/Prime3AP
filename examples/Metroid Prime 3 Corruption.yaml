@@ -9,11 +9,15 @@ game: 'Metroid Prime 3: Corruption'
 requires:
   version: 0.6.8              # Archipelago version
   game:
-    'Metroid Prime 3: Corruption': 0.3.0   # world version (metroidprime3.apworld)
+    'Metroid Prime 3: Corruption': 0.4.0   # world version (metroidprime3.apworld)
 
 'Metroid Prime 3: Corruption':
-  # The world has no game-specific options yet: 99 locations, default starting location
-  # (G.F.S. Valhalla, Docking Bay 5), goal = defeat Dark Samus / Aurora Unit 313 on Phaaze.
+  # Keep any subset of these four items. Power Beam, Combat Visor and Scan Visor are always kept.
+  # Tricks are experimental. Even beginner can require tricks for progression.
+  # Player options: https://github.com/junkx420/corruptovania/blob/archipelago/docs/AP_OPTIONS.md
+  starting_items: ['Charge Beam', 'Space Jump Boots', 'Morph Ball', 'Morph Ball Bombs']
+  trick_level: 'off'
+  trick_overrides: {}
   progression_balancing: normal   # 0-99, "normal" = 50
   accessibility: full             # full: every location reachable; minimal: only the goal
   local_items: []
